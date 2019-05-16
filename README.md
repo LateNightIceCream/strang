@@ -1,1 +1,2 @@
 # strang
+![pic](screencap.gif)
