@@ -8,12 +8,11 @@ class Coil {
   float c1_posx, c2_posx, c1_posy, c2_posy;
 
   // colors
-  float hue = 0, saturation = 0, brightness = 0;
+  float hue = 0, brightness = 0;
 
+  BVector coilvector = new BVector(0,0,0);
 
-  BVector coilvector = new BVector(0,0, #F9F871);
-
-  Coil (float _xpos, float _ypos, float _length, float _diameter, int _windings, float _rotangle, float _amplitude, float _frequency, float _phase, float _permeability) {
+  Coil (float _xpos, float _ypos, float _length, float _diameter, int _windings, float _rotangle, float _amplitude, float _frequency, float _phase, float _hue) {
 
     xpos      = _xpos;
     ypos      = _ypos;
@@ -24,12 +23,16 @@ class Coil {
     amplitude = _amplitude; // cuurent amplitude
     frequency = _frequency; // current frequency
     phase     = _phase;     // current phase
-    permeability = _permeability;
+    //permeability = _permeability;
+    hue       = _hue;        // color of coil and vector
 
     coilvector.xpos = xpos; // a little hacked
     coilvector.ypos = ypos;
+    coilvector.hue  = hue;
 
   }
+
+
 
   void update() {
 
@@ -41,18 +44,15 @@ class Coil {
 
     brightness = 100 * abs(cos(2*PI*frequency*time + phase));
     noStroke();
-    fill(183, 100, brightness);
+    fill(hue, 46, brightness); //183
     circle(c1_posx, c1_posy, diameter); // c1
     circle(c2_posx, c2_posy, diameter); // c2
 
 
-
+    coilvector.hue= hue;
     coilvector.bx = B(time) * cos(PI/2-rotangle);
     coilvector.by = B(time) * sin(PI/2-rotangle);
     coilvector.update();
-
-    //text(time, 100,100);
-    //text(B(time), 100, 160);
 
 
   }
